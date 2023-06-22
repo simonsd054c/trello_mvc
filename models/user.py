@@ -1,5 +1,5 @@
 from init import db,ma
-
+from marshmallow import fields
 class User(db.Model): #Gets data from database
     __tablename__ = 'users'
     # attributes freom draw.io
@@ -9,9 +9,12 @@ class User(db.Model): #Gets data from database
     password = db.Column(db.String, nullable=False)    
     is_admin = db.Column(db.Boolean, default=False)
     
+    cards = db.relationship('Card', back_populates='user', cascade='all, delete')
+    
 class UserSchema(ma.Schema):  #converts to JSON
+    cards = fields.List(fields.Nested('CardSchema', exclude=['user']))
     class Meta: 
-        fields = ('id', 'name', 'email', 'password', 'is_admin') #fields being converted
+        fields = ('id', 'name', 'email', 'password', 'is_admin', 'cards') #fields being converted
         
 user_schema = UserSchema(exclude=['password']) # retrieves single user, excluding password
 users_schema = UserSchema(many=True, exclude=['password'])# list of users
