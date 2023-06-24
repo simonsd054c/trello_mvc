@@ -1,4 +1,4 @@
-from init import db
+from init import db,ma
 from marshmallow import fields
 
 class Comment(db.Model):
