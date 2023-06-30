@@ -82,20 +82,20 @@ def seed_db():
             user=users[1],
             card=cards[2]
         ),
-         Comment(
+        Comment(
             message="Comment 3",
             user=users[1],
             card=cards[3]
         ),
-          Comment(
+        Comment(
             message="Comment 4",
             user=users[0],
             card=cards[3]
-        ),
+        )
     ]
-    
+
     db.session.add_all(comments)
-    
+
     db.session.commit()
 
 
